@@ -15,10 +15,45 @@ function App() {
   }, []);
 
   if (path === '/') {
+    const [url, setUrl] = useState('');
+    const [shortenedUrl, setShortenedUrl] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setMessage(''); // Clear previous messages
+      try {
+        const response = await axios.post('https://url-shortener-2p0y.onrender.com/shorten', { url });
+        const { data } = response.data;
+        setShortenedUrl(`https://bidenjr-utils.netlify.app/${data.shortCode}`);
+        setMessage({ type: 'success', text: 'Success =>', url: `https://bidenjr-utils.netlify.app/${data.shortCode}` });
+        setUrl(''); // Clear input
+      } catch (error) {
+        console.error('Error shortening URL:', error);
+        setMessage({ type: 'error', text: 'Tell BidenJr to Setup DB' });
+        setShortenedUrl('');
+      }
+    };
+
     return (
       <div className="App">
         <h1>URL Shortener</h1>
         <p>Your only free URL shortener without ads.</p>
+        <form onSubmit={handleSubmit} className="input-section">
+          <input
+            type="text"
+            placeholder="Enter your URL"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            className="url-input"
+          />
+          <button type="submit" className="shorten-button">Create URL</button>
+        </form>
+        {message && (
+          <p className={`message-text ${message.type}`}>
+            {message.text} {message.url && <a href={message.url} target="_blank" rel="noopener noreferrer" className="short-url-link">{message.url}</a>}
+          </p>
+        )}
       </div>
     );
   } else if (path.startsWith('/')) {
