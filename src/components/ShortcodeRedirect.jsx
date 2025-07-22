@@ -3,7 +3,7 @@ import axios from 'axios';
 import { isValidHttpUrl } from '../utils/validation';
 
 function ShortcodeRedirect({ shortcode }) {
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(3);
   const [showProceedButton, setShowProceedButton] = useState(false);
   const [originalUrl, setOriginalUrl] = useState('');
 

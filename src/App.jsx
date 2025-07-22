@@ -19,19 +19,18 @@ function App() {
   if (path === '/') {
     return <UrlShortenerForm />;
   } else if (path === '/not-found') {
-    return <NotFound />; // Use the NotFound component
+    return <NotFound />;
   } else if (path.startsWith('/')) {
-    const shortcode = path.substring(1); // Remove the leading '/'
+    const shortcode = path.substring(1);
     if (isValidShortcode(shortcode)) {
       return <ShortcodeRedirect shortcode={shortcode} />;
     } else {
-      // If the shortcode is not valid, redirect to the not-found page
       window.history.replaceState({}, '', '/not-found');
-      return <NotFound />; // Use the NotFound component
+      return <NotFound />;
     }
   }
-  // Fallback for any other unhandled paths, though the above conditions should cover most cases
-  return <NotFound />; // Use the NotFound component
+  // Fallback
+  return <NotFound />;
 }
 
 export default App;
