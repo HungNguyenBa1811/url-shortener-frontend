@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
 import { PulseLoader } from 'react-spinners';
-import CopyIcon from './CopyIcon';
-import CheckIcon from './CheckIcon';
+
+import CopyIcon from '../components/icons/CopyIcon';
+import CheckIcon from '../components/icons/CheckIcon';
 import { isValidHttpUrl } from '../utils/validation';
 
-function UrlShortenerForm() {
+function Home() {
   const [url, setUrl] = useState('');
   const [shortenedUrl, setShortenedUrl] = useState('');
   const [message, setMessage] = useState('');
@@ -63,7 +64,7 @@ function UrlShortenerForm() {
           className='w-3/4 xl:w-1/3 bg-blue-50 focus:bg-blue-100 px-5 py-3 outline-0 rounded-lg text-lg !leading-relaxed '
         />
         <div className='flex flex-row justify-center w-3/4 xl:w-auto'>
-          <button type="submit" className='px-5 py-3 rounded-lg bg-blue-500 border-2 border-transparent text-white font-semibold cursor-pointer hover:bg-white hover:text-blue-500 hover:border-blue-500'>
+          <button type="submit" disabled={!!isLoading} className='px-5 py-3 rounded-lg bg-blue-500 border-2 border-transparent text-white font-semibold cursor-pointer hover:bg-white hover:text-blue-500 hover:border-blue-500 disabled:text-white disabled:bg-blue-400 disabled:border-blue-400 disabled:hover:text-white disabled:hover:bg-blue-400'>
             {isLoading ? <PulseLoader size={8} color={"#FFFFFF"} /> : "Shorten"}
           </button>
         </div>
@@ -90,4 +91,4 @@ function UrlShortenerForm() {
   );
 }
 
-export default UrlShortenerForm;
+export default Home;

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import UrlShortenerForm from './components/UrlShortenerForm';
-import ShortcodeRedirect from './components/ShortcodeRedirect';
-import NotFound from './components/NotFound'; // Import the new NotFound component
+
+import Home from './pages/Home';
+import Redirect from './pages/Redirect';
+import NotFound from './pages/NotFound';
 import { isValidShortcode } from './utils/validation';
 
 function App() {
@@ -17,13 +18,13 @@ function App() {
   }, []);
 
   if (path === '/') {
-    return <UrlShortenerForm />;
+    return <Home />;
   } else if (path === '/not-found') {
     return <NotFound />;
   } else if (path.startsWith('/')) {
     const shortcode = path.substring(1);
     if (isValidShortcode(shortcode)) {
-      return <ShortcodeRedirect shortcode={shortcode} />;
+      return <Redirect shortcode={shortcode} />;
     } else {
       window.history.replaceState({}, '', '/not-found');
       return <NotFound />;
