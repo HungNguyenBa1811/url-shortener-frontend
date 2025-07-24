@@ -39,8 +39,8 @@ function Home() {
     try {
       const response = await axios.post('https://url-shortener-2p0y.onrender.com/shorten', { url });
       const { data } = response.data;
-      setShortenedUrl(`https://bidenjr-utils.netlify.app/${data.shortCode}`);
-      setMessage({ type: 'success', text: 'Success', url: `https://bidenjr-utils.netlify.app/${data.shortCode}` });
+      setShortenedUrl(`https://bidenjr.netlify.app/${data.shortCode}`);
+      setMessage({ type: 'success', text: 'Success', url: `https://bidenjr.netlify.app/${data.shortCode}` });
       setUrl('');
     } catch (error) {
       console.error('Error shortening URL:', error);
