@@ -53,7 +53,7 @@ function Home() {
 
   return (
     <div className='h-screen flex flex-col items-center justify-center gap-2'>
-      <p className='text-blue-500 font-bold text-4xl md:text-5xl lg:text-5xl xl:text-5xl'>URL Shortener</p>
+      <p className='text-blue-500 font-bold text-4xl md:text-5xl lg:text-5xl xl:text-5xl'>BidenJr's URL Shortener</p>
       <p className='pb-10 text-xs md:text-sm lg:text-sm xl:text-sm'>Your only free URL shortener without ads.</p>
       <form className='flex flex-row flex-wrap justify-center gap-5 w-full' onSubmit={handleSubmit}>
         <input
@@ -61,6 +61,7 @@ function Home() {
           placeholder="Enter your URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
+          disabled={!!isLoading}
           className='w-3/4 xl:w-1/3 bg-blue-50 focus:bg-blue-100 px-5 py-3 outline-0 rounded-lg text-lg !leading-relaxed '
         />
         <div className='flex flex-row justify-center w-3/4 xl:w-auto'>

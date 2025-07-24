@@ -1,37 +1,29 @@
-import { useState, useEffect } from 'react';
-
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Redirect from './pages/Redirect';
 import NotFound from './pages/NotFound';
-import { isValidShortcode } from './utils/validation';
+import AdminVerification from './pages/AdminVerification';
+import Admin from './pages/Admin';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [path, setPath] = useState(window.location.pathname);
-
-  useEffect(() => {
-    const handlePopState = () => {
-      setPath(window.location.pathname);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  if (path === '/') {
-    return <Home />;
-  } else if (path === '/not-found') {
-    return <NotFound />;
-  } else if (path.startsWith('/')) {
-    const shortcode = path.substring(1);
-    if (isValidShortcode(shortcode)) {
-      return <Redirect shortcode={shortcode} />;
-    } else {
-      window.history.replaceState({}, '', '/not-found');
-      return <NotFound />;
-    }
-  }
-  // Fallback
-  return <NotFound />;
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/verification" element={<AdminVerification />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/not-found" element={<NotFound />} />
+      <Route path="/:shortcode" element={<Redirect />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 }
 
 export default App;
